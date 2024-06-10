@@ -1,0 +1,38 @@
+@InPrompts=InPrompts
+
+### List Prompts
+GET {{InPrompts.Web_HostAddress}}/Prompts
+Accept: application/json
+
+### Get Book
+@PromptId=DFFE455B-8F20-4B08-9EC5-3B4A1FFC4D18
+GET {{InPrompts.Web_HostAddress}}/Prompts/{{PromptId}}
+Accept: application/json
+
+### Create Book
+POST {{InPrompts.Web_HostAddress}}/Prompts
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "518B2BB4-CE5D-4EAA-9B7A-82FA382291DA",
+  "text": "Modular Monoliths - Getting Started",
+  "user": "SupaSebie",
+  "views": 0
+}
+
+#### Get created book
+GET {{InPrompts.Web_HostAddress}}/Prompts/518b2bb4-ce5d-4eaa-9b7a-82fa382291da
+Accept: application/json
+
+#### Delete created book
+DELETE {{InPrompts.Web_HostAddress}}/Prompts/518b2bb4-ce5d-4eaa-9b7a-82fa382291da
+Accept: application/json
+
+### Update book price
+POST {{InPrompts.Web_HostAddress}}/Prompts/518b2bb4-ce5d-4eaa-9b7a-82fa382291da/pricehistory
+Accept: application/json
+Content-Type: application/json
+{
+    "text": "DATA STOP IT YOU DIRTY DOG"
+}

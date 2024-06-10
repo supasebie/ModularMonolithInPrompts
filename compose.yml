@@ -1,0 +1,9 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Qwerty1337!
+      POSTGRES_DB: InPrompts
+    ports:
+      - "5432:5432"
