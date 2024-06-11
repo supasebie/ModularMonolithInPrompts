@@ -1,5 +1,4 @@
-@InPrompts=InPrompts
-
+@InPrompts.Web_HostAddress = https://localhost:7100
 ### List Prompts
 GET {{InPrompts.Web_HostAddress}}/Prompts
 Accept: application/json

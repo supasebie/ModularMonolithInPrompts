@@ -2,19 +2,19 @@
 
 namespace InPrompts.Prompts.PromptEndpoints;
 
-public record UpdateTextRequest
+public record UpdatePromptTextRequest
 {
     public Guid Id { get; set; }
     public string Text { get; set; } = string.Empty;
 
-    public UpdateTextRequest(Guid id, string text)
+    public UpdatePromptTextRequest(Guid id, string text)
     {
         Id = id;
         Text = text;
     }
 }
 
-internal class UpdateText(IPromptService promptService) : Endpoint<UpdateTextRequest, PromptDto>
+internal class UpdatePromptText(IPromptService promptService) : Endpoint<UpdatePromptTextRequest, PromptDto>
 {
     public override void Configure()
     {
@@ -22,7 +22,7 @@ internal class UpdateText(IPromptService promptService) : Endpoint<UpdateTextReq
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(UpdateTextRequest request, CancellationToken ct)
+    public override async Task HandleAsync(UpdatePromptTextRequest request, CancellationToken ct)
     {
         await promptService.UpdatePromptAsync(request.Id, request.Text);
         await SendNoContentAsync(cancellation: ct);

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace InPrompts.Prompts;
 
-public class PromptDbContext(DbContextOptions options) : DbContext(options)
+public class PromptDbContext(DbContextOptions<PromptDbContext> options) : DbContext(options)
 {
     internal DbSet<Prompt> Prompts { get; set; } = default!;
 
@@ -13,6 +13,12 @@ public class PromptDbContext(DbContextOptions options) : DbContext(options)
     {
         modelBuilder.HasDefaultSchema(nameof(Prompts));
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.EnableDetailedErrors().EnableSensitiveDataLogging();
     }
 }
 
