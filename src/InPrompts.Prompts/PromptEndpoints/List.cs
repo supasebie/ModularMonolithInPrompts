@@ -17,4 +17,4 @@ internal class List(IPromptService promptService) : EndpointWithoutRequest<ListP
     }
 }
 
-internal record ListPromptResponse(List<PromptDto> Prompts);
+internal record ListPromptResponse(List<Prompt> Prompts);

@@ -11,7 +11,7 @@ public record UserLoginRequest(string Email, string Password);
 
 public record UserLoginResponse(string Token);
 
-internal class Login(UserManager<ApplicationUser> userManager, ILogger logger) : Endpoint<UserLoginRequest, UserLoginResponse>
+internal class Login(UserManager<AppUser> userManager, ILogger logger) : Endpoint<UserLoginRequest, UserLoginResponse>
 {
 
     public override void Configure()

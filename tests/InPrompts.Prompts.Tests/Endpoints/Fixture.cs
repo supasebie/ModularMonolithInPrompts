@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+using InPrompts.Web;
+using InPrompts.Prompts.Data;
+
 using Testcontainers.PostgreSql;
 
 using Xunit.Abstractions;
@@ -22,7 +25,7 @@ public class Fixture(IMessageSink messageSink) : AppFixture<Program>(messageSink
     protected override async Task SetupAsync()
     {
         Client = CreateClient();
-        var context = Services.GetRequiredService<PromptDbContext>();
+        var context = Services.GetRequiredService<PromptsDbContext>();
 
         var migrations = await context.Database.GetPendingMigrationsAsync();
         if (migrations.Any())

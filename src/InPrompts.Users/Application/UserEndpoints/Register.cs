@@ -7,7 +7,7 @@ namespace InPrompts.Users.UserEndpoints
 {
     public record RegisterUserRequest(string Email, string Password);
 
-    internal class Create(UserManager<ApplicationUser> userManager) : Endpoint<RegisterUserRequest>
+    internal class Create(UserManager<AppUser> userManager) : Endpoint<RegisterUserRequest>
     {
         public override void Configure()
         {
@@ -17,7 +17,7 @@ namespace InPrompts.Users.UserEndpoints
 
         public override async Task HandleAsync(RegisterUserRequest req, CancellationToken ct)
         {
-            var user = new ApplicationUser { Email = req.Email, UserName = req.Email };
+            var user = new AppUser { Email = req.Email, UserName = req.Email };
 
             var result = await userManager.CreateAsync(user, req.Password);
             if (!result.Succeeded)
