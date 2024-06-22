@@ -40,6 +40,9 @@ Oh, I'd also like to shout out to Steve Smith "Ardalis" for advocating best prac
 For More information on Modular Monoliths, see the following Microsoft productions;
 
 [Visual Studio Live - Building a modular Monolith](https://www.youtube.com/watch?v=wkAc6K09pKQ&ab_channel=MicrosoftVisualStudio)
+
+and also
+
 [.Net Live Modular Monoliths With Asp.Net](https://learn.microsoft.com/en-us/shows/on-net/on-dotnet-live-modular-monoliths-with-aspnet-core)
 
 ## API and command query pipeline
