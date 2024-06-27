@@ -4,17 +4,17 @@ namespace InPrompts.Prompts.PromptEndpoints;
 
 public record UpdatePromptTextRequest
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string Text { get; set; } = string.Empty;
 
-    public UpdatePromptTextRequest(Guid id, string text)
+    public UpdatePromptTextRequest(int id, string text)
     {
         Id = id;
         Text = text;
     }
 }
 
-internal class UpdatePromptText(IPromptService promptService) : Endpoint<UpdatePromptTextRequest, PromptDto>
+internal class UpdatePromptText(IPromptService promptService) : Endpoint<UpdatePromptTextRequest, Prompt>
 {
     public override void Configure()
     {

@@ -1,13 +1,14 @@
-
 using FastEndpoints;
+using FastEndpoints.Security;
 
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 
 namespace InPrompts.Users.UserEndpoints
 {
     public record RegisterUserRequest(string Email, string Password);
+    public record RegisterUserResponse(string Token);
 
-    internal class Create(UserManager<AppUser> userManager) : Endpoint<RegisterUserRequest>
+    internal class Register(IMediator mediator) : Endpoint<RegisterUserRequest, RegisterUserResponse>
     {
         public override void Configure()
         {
@@ -17,22 +18,20 @@ namespace InPrompts.Users.UserEndpoints
 
         public override async Task HandleAsync(RegisterUserRequest req, CancellationToken ct)
         {
-            var user = new AppUser { Email = req.Email, UserName = req.Email };
+            var command = new CreateUserCommand(req.Email, req.Password);
+            var response = await mediator.Send(command, ct);
 
-            var result = await userManager.CreateAsync(user, req.Password);
-            if (!result.Succeeded)
+            if (response.IsSuccess)
             {
-                var problems = new ProblemDetails
+                var jwtSecret = Config["Auth:JwtSecret"]!;
+                var token = JwtBearer.CreateToken(o =>
                 {
-                    Errors = result.Errors.Select(x =>
-                        new ProblemDetails.Error { Code = x.Code, Reason = x.Description, Name = x.Code }),
-                    Detail = "Could not register user."
-                };
-                await SendAsync(problems, 400, ct);
-                return;
-            }
+                    o.SigningKey = jwtSecret;
+                    o.User["EmailAddress"] = req.Email!;
+                });
 
-            await SendOkAsync(ct);
+                await SendAsync(new RegisterUserResponse(token));
+            }
         }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace InPrompts.Prompts.PromptEndpoints;
 
-public record DeletePromptRequest(Guid Id);
+public record DeletePromptRequest(int Id);
 
-internal class Delete(IPromptService promptService) : Endpoint<DeletePromptRequest, PromptDto>
+internal class Delete(IPromptService promptService) : Endpoint<DeletePromptRequest, Prompt>
 {
     public override void Configure()
     {

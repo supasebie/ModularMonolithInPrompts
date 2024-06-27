@@ -1,41 +1,43 @@
 
 # Welcome to InPrompts as a Modular Monolith
 
-### A cloud native architecture that's positioned to deploy as Microservices  
+### Overview
 
-* **Domain Driven Design** - Entities with well defined root aggregates and separation.
+InPrompts is a cloud-native application designed using the modular monolith architecture. The latest Microsoft  reccomendation in architecture,  that allows for easy deployment as microservices in the future. This approach combines the best of both monolithic and microservice architectures, providing a scalable and maintainable solution. *Note, I am contributing to this repo on the daily. Please feel free to reach out with questions, thoughts, etc.
 
-* **Clean Architecture** - Domain/Application/Infrastructure with subcategory isolation.
+* **Domain Driven Design** - Well-defined root aggregates and domain separation
 
-* **Entity Framework Core 8** - Using fluent builder for more explicit context and migration.
+* **Clean Architecture** - Structured into Domain, Application, and Infrastructure application layers
 
-* **Microsoft Identity** - Auth bearer implementation.
+* **Entity Framework Core 8** - Using fluent builder for more explicit context and migration
 
-* **Docker** - Currently used to implement back end resources.
+* **Microsoft Identity** - Authentication with bearer token implementation
 
-* **Postgres** - Containerized and part of our Dockerization.
+* **Docker** - Containerization of backend resources
 
-* **Minimal Web API** - Using Fast-Endpoints with the _REPR_ (Request-Endpoint-Response) pattern.
+* **Postgres** - Containerized and easily swapped out
 
-* **MediatR** - Command query responsibility segregation _(CQRS)_ pattern with in-process debugging!
+* **Minimal Web API** - Utilizing Fast-Endpoints with the _REPR_ (Request-Endpoint-Response) pattern.
 
-* **RabbitMQ** - Event bus for cross module complexities and aux functionality (email on publish)
+* **MediatR** - Implementing Command Query Responsibility segregation _(CQRS)_ pattern with in-process debugging
+
+* **RabbitMQ/Mass Transit** - Event bus for cross-module communication and auxiliary functionality
 
 * **Xunit** - TESTING, TESTING, TESING!
 
 * **FluentAssestions** - Did I mention TESTING?
 
-* **Angular 18** - Using all the latest features, see below;
+* **Angular 18** - Frontend implementation with the all the latest Angular features; designed to be a zoneless Angular application
 
 # The Back End
 
-InPrompts implements the latest design paradigms and architectural best practices from Microsoft. The Modular Monolith takes advantage of tenants that fall under "Pros" for both Microservices and Monoliths. While at the same time we do our best to leave the middle of the fray with as few "Cons" as possible. The added abstraction is the biggest thing we have to wrestle with, but it's substantially leaner than developing individual Microservices. 
-I've become a huge fan of the Modular Monolith, it struck me profoundly due to it's capacity to solve the design paralysis that can come with starting a new project. The main factor that prevents individual developers and teams from achieving the holy grail of Microservice architecture is the startup. How often do we talk about refactoring, but the demands of the backlog keep the application moving in the same direction seemingly out of control?
-The Modular Monolith positions developer so that we are well situated to refactor portions of the app into Microservice architecture with no tight coupling. We could, for example; Refactor our User entity and Identity module into its own Microservice to take on a large user ingress with horizontal deployment scaling on Azure. All, without having to overhaul or navigate too far from the the existing style and architecture of our application. A developer at any skill level becomes most capable of contributing deliverables, when they have adapted to the application.
+InPrompts implements the latest design paradigms and architectural best practices promoted by Microsoft. The Modular Monolith takes advantage of tenants that fall under "Pros" for both Microservices and Monoliths. At the same time we do our best to leave the middle of the fray with as few "Cons" as possible. All the infrastructure, resources, and added abstraction can be so cumbersome that we sometimes avoid refactoring to Micrroservice, cloud ready applications.
+I've become a huge fan of the Modular Monolith, it struck me profoundly due to it's capacity to solve the design paralysis that can come with starting a new project, the right way. A main factor that prevents individual developers and teams from achieving the holy grail of Microservice architecture is the startup. How often do we consider refactoring, but the demands of the backlog keep the application moving in the same direction, seemingly out of control?
+The Modular Monolith positions developers so that we are well situated to refactor portions of the app into Microservice architecture because we start building with no tight coupling. We could, for example; Refactor our User entity and Identity module into its own Microservice to take on a large user ingress with horizontal deployment scaling on Azure. All, without having to overhaul or navigate too far from the the existing style and architecture of our application. A developer at any skill level is most capable of contributing deliverables, when we have adapted to the application.
 
-Microsoft is no longer suggesting that we start at Microservice architecture, due to the cost and failure rate during engineering startup. Microsoft MVP's like Stever Smith, Ardalis now advocate the Modular Monolith as the starting architecture for .Net applications. The Modular Monolith by design fits well into the cloud ready era and frameworks like .Net Aspire. Cohesively this encourages developers to start building enterprise ready cloud native applications as the baseline for apps of any size.
+Microsoft is now encouraging developers steer clear of Microservice architecture at the start of a project. This is due to the costs and failure rates that happen during the start of a project. Microsoft and their MVP's now advocate the Modular Monolith as the starting architecture for .Net applications. The Modular Monolith by design fits well into the cloud ready era and frameworks like .Net Aspire. Cohesively this encourages developers to start building enterprise ready cloud native applications as the baseline for projects of any size.
 
-I'd like to give credit to "Ardalis" for advocating best practices as one of Microsofts top MVP. This project uses two Nuget packages developed by him. It's unfortunate that but he has paywalled his material on Modular Monoliths... While we wait for official Microsoft Documentation, you can use this project as an example.
+I'd like thank Ardalis for advocating best practices as one of Microsofts top MVP. This project uses two of his Nuget packages. Unfortunatly he has paywalled material on Modular Monoliths... In the meantime, while we wait for official Microsoft documentation, I hope this project you a solid example
 
 For More information on Modular Monoliths, see the following Microsoft productions;
 

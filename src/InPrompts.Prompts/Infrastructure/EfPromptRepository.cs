@@ -19,7 +19,7 @@ internal class EfPromptRepository(PromptsDbContext dbContext) : IEfPromptReposit
 
   public Task SaveChangesAsync() => dbContext.SaveChangesAsync();
 
-  public async Task<Prompt?> GetByIdAsync(Guid id) => await dbContext.Prompts.FindAsync(id);
+  public async Task<Prompt?> GetByIdAsync(int id) => await dbContext.Prompts.FindAsync(id);
 
   public async Task<List<Prompt>> ListAsync() => await dbContext.Prompts.ToListAsync();
 }

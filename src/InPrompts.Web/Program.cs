@@ -11,6 +11,7 @@ using InPrompts.Users;
 
 using Serilog;
 using InPrompts.Users.UseCases;
+using AutoMapper;
 
 var logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -28,15 +29,22 @@ builder.Services.AddFastEndpoints()
     .AddAuthorization()
     .SwaggerDocument();
 
-List<Assembly> mediatrAssemblies = [typeof(InPrompts.Web.Program).Assembly];
+// Initialize assemblies and add module assemblies
+List<Assembly> appAssemblies = [typeof(InPrompts.Web.Program).Assembly];
 builder.Services
-    .AddPromptModule(builder.Configuration, logger, mediatrAssemblies)
-    .AddUserModule(builder.Configuration, logger, mediatrAssemblies);
+    .AddPromptModule(builder.Configuration, logger, appAssemblies)
+    .AddUserModule(builder.Configuration, logger, appAssemblies);
 
-builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(mediatrAssemblies.ToArray()));
+// Configure AutoMapper
+builder.Services.AddAutoMapper(config => config.AddMaps(appAssemblies.ToArray()));
+
+// Configure MediatR
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(appAssemblies.ToArray()));
 builder.Services.AddMediatRLoggingBehavior();
 builder.Services.AddMediatRFluentValidationValidationBehavior();
 builder.Services.AddValidatorsFromAssemblyContaining<AddUserPromptCommandValidator>();
+
+// Event Dispatcher Configuration
 builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 
 var app = builder.Build();

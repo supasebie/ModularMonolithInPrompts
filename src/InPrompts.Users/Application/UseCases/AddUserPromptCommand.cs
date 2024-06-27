@@ -23,13 +23,6 @@ internal class AddUserPromptHandler(IEfUserRepository userRepository
       return Result.Unauthorized();
     }
 
-    // var prompt = new PostPromptRequest() {
-    //   etc ...
-    // };
-
-    // var command = new PostPromptCommand(request);
-    // var result = await mediator.Send(command, cancellationToken);
-
     var newUserPrompt = new UserPrompt()
     {
       Title = request.UserPrompt.Title,
