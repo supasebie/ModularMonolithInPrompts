@@ -1,6 +1,7 @@
 using System.Reflection;
 
 using InPrompts.SharedKernel;
+using InPrompts.User;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InPrompts.Users;
 
-public class UsersDbContext(DbContextOptions<UsersDbContext> options, IDomainEventDispatcher? dispatcher) : IdentityDbContext<AppUser, AppRole, int>(options)
+public class UsersDbContext(DbContextOptions<UsersDbContext> options, IDomainEventDispatcher? dispatcher) : IdentityDbContext<AppUser, AppRole, Guid>(options)
 {
   public DbSet<AppUser> AppUsers { get; init; }
 

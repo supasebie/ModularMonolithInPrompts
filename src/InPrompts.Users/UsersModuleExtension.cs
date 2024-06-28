@@ -12,7 +12,7 @@ using Serilog;
 
 namespace InPrompts.Users;
 
-public static class UserModuleExtension
+public static class UsersModuleExtension
 {
     public static IServiceCollection AddUserModule(
     this IServiceCollection services,
@@ -24,7 +24,7 @@ public static class UserModuleExtension
         services.AddDbContext<UsersDbContext>(config => config.UseNpgsql(connectionString));
         services.AddIdentityCore<AppUser>()
             .AddEntityFrameworkStores<UsersDbContext>();
-        mediatrAssemblies.Add(typeof(UserModuleExtension).Assembly);
+        mediatrAssemblies.Add(typeof(UsersModuleExtension).Assembly);
         services.AddScoped<IEfUserRepository, EfUserRepository>();
 
         logger.Information("{Module} module services registered", "Users");
@@ -32,6 +32,4 @@ public static class UserModuleExtension
         return services;
     }
 }
-
-public class AppRole : IdentityRole<int> { }
 

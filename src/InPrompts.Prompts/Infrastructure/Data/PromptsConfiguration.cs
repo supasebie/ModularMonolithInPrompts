@@ -11,27 +11,27 @@ internal class PromptsConfiguration : IEntityTypeConfiguration<Prompt>
     builder.HasData(GetSamplePromptsData());
   }
 
-  // internal static readonly Guid Prompt1Id = new("DFFE455B-8F20-4B08-9EC5-3B4A1FFC4D18");
-  // internal static readonly Guid Prompt2Id = new("F8E9B841-E4AD-45ED-A68C-04E5EDD375FC");
-  // internal static readonly Guid Prompt3Id = new("BBB5A494-3CED-4E39-9BC9-59E1AC8123A1");
-  // internal static readonly Guid Prompt4Id = new("A9C3C99E-2ED6-4D9A-BC8D-6A3E9F78B8AC");
-  // internal static readonly Guid Prompt5Id = new("B23B8E91-FEF3-4094-AB3B-9E9D563D21B7");
-  // internal static readonly Guid Prompt6Id = new("C4A1F4F8-E5F1-4B71-AFAC-D15B1B54B6C8");
-  // internal static readonly Guid Prompt7Id = new("D6E9C4D8-F2AB-4AEB-A8FA-2D4EAD4C5E99");
-  // internal static readonly Guid Prompt8Id = new("E7D1B8A1-1F23-4DF3-BA84-5F9A1D1D4E34");
-  // internal static readonly Guid Prompt9Id = new("F9A2E4B7-2C5B-4FAE-8D3B-6B2C1E4B8F4D");
-  // internal static readonly Guid Prompt10Id = new("A5F8E7D9-3A4B-4C7E-9D2F-4B5A1C3E6B8F");
+  internal static readonly Guid Prompt1Id = new("DFFE455B-8F20-4B08-9EC5-3B4A1FFC4D18");
+  internal static readonly Guid Prompt2Id = new("F8E9B841-E4AD-45ED-A68C-04E5EDD375FC");
+  internal static readonly Guid Prompt3Id = new("BBB5A494-3CED-4E39-9BC9-59E1AC8123A1");
+  internal static readonly Guid Prompt4Id = new("A9C3C99E-2ED6-4D9A-BC8D-6A3E9F78B8AC");
+  internal static readonly Guid Prompt5Id = new("B23B8E91-FEF3-4094-AB3B-9E9D563D21B7");
+  internal static readonly Guid Prompt6Id = new("C4A1F4F8-E5F1-4B71-AFAC-D15B1B54B6C8");
+  internal static readonly Guid Prompt7Id = new("D6E9C4D8-F2AB-4AEB-A8FA-2D4EAD4C5E99");
+  internal static readonly Guid Prompt8Id = new("E7D1B8A1-1F23-4DF3-BA84-5F9A1D1D4E34");
+  internal static readonly Guid Prompt9Id = new("F9A2E4B7-2C5B-4FAE-8D3B-6B2C1E4B8F4D");
+  internal static readonly Guid Prompt10Id = new("A5F8E7D9-3A4B-4C7E-9D2F-4B5A1C3E6B8F");
 
-  internal static readonly int Prompt1Id = 1;
-  internal static readonly int Prompt2Id = 2;
-  internal static readonly int Prompt3Id = 3;
-  internal static readonly int Prompt4Id = 4;
-  internal static readonly int Prompt5Id = 5;
-  internal static readonly int Prompt6Id = 6;
-  internal static readonly int Prompt7Id = 7;
-  internal static readonly int Prompt8Id = 8;
-  internal static readonly int Prompt9Id = 9;
-  internal static readonly int Prompt10Id = 10;
+  // internal static readonly int Prompt1Id = 1;
+  // internal static readonly int Prompt2Id = 2;
+  // internal static readonly int Prompt3Id = 3;
+  // internal static readonly int Prompt4Id = 4;
+  // internal static readonly int Prompt5Id = 5;
+  // internal static readonly int Prompt6Id = 6;
+  // internal static readonly int Prompt7Id = 7;
+  // internal static readonly int Prompt8Id = 8;
+  // internal static readonly int Prompt9Id = 9;
+  // internal static readonly int Prompt10Id = 10;
 
   private IEnumerable<Prompt> GetSamplePromptsData()
   {

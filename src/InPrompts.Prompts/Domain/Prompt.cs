@@ -7,7 +7,7 @@ namespace InPrompts.Prompts;
 internal record Prompt
 {
     [Key]
-    public int Id { get; init; }
+    public Guid Id { get; init; }
     public string UserEmail { get; set; } = string.Empty;
     public string PostTitle { get; set; } = string.Empty;
     public string PostBodyText { get; set; } = string.Empty;
@@ -37,7 +37,7 @@ internal record CreatePromptDto
 
 internal record PromptResponseDto
 {
-    public int Id { get; init; }
+    public Guid Id { get; init; }
     public string UserEmail { get; set; } = string.Empty;
     public string PostTitle { get; set; } = string.Empty;
     public string PostBodyText { get; set; } = string.Empty;

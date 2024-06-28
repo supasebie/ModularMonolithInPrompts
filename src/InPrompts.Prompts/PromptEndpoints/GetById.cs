@@ -2,7 +2,7 @@
 
 namespace InPrompts.Prompts.PromptEndpoints;
 
-public record GetPromptByIdRequest(int Id);
+public record GetPromptByIdRequest(Guid Id);
 
 internal class GetById(IPromptService promptService) : Endpoint<GetPromptByIdRequest, Prompt>
 {

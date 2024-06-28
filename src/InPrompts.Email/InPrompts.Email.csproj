@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Result" Version="9.1.0" />
+    <PackageReference Include="FastEndpoints" Version="5.26.0.24-beta" />
+    <PackageReference Include="MailKit" Version="4.6.0" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.27.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.2-dev-00338" />
+  </ItemGroup>
+</Project>

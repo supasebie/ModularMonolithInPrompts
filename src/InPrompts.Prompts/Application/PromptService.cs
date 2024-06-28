@@ -29,14 +29,14 @@ internal class PromptService(IEfPromptRepository repo, IMapper mapper) : IPrompt
         return response;
     }
 
-    public async Task DeletePromptAsync(int id)
+    public async Task DeletePromptAsync(Guid id)
     {
         var promptToDelete = await repo.GetByIdAsync(id);
         await repo.RemoveAsync(promptToDelete!);
         await repo.SaveChangesAsync();
     }
 
-    public async Task<Prompt> GetPromptByIdAsync(int id)
+    public async Task<Prompt> GetPromptByIdAsync(Guid id)
     {
         return await repo.GetByIdAsync(id) switch
         {
@@ -65,7 +65,7 @@ internal class PromptService(IEfPromptRepository repo, IMapper mapper) : IPrompt
         }).ToList();
     }
 
-    public async Task UpdatePromptAsync(int id, string newText)
+    public async Task UpdatePromptAsync(Guid id, string newText)
     {
         var prompt = await repo.GetByIdAsync(id);
         prompt!.UpdateText(newText);

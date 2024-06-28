@@ -4,10 +4,10 @@ namespace InPrompts.Prompts.PromptEndpoints;
 
 public record UpdatePromptTextRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Text { get; set; } = string.Empty;
 
-    public UpdatePromptTextRequest(int id, string text)
+    public UpdatePromptTextRequest(Guid id, string text)
     {
         Id = id;
         Text = text;

@@ -5,7 +5,7 @@ namespace InPrompts.Users;
 public record UserPrompt
 {
     [Key]
-    public int Id { get; init; }
+    public Guid Id { get; set; }
     public string UserEmail { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string Body { get; set; } = string.Empty;

@@ -9,6 +9,6 @@ internal interface IEfPromptRepository : IReadOnlyPromptRepository
 
 internal interface IReadOnlyPromptRepository
 {
-  Task<Prompt?> GetByIdAsync(int id);
+  Task<Prompt?> GetByIdAsync(Guid id);
   Task<List<Prompt>> ListAsync();
 }

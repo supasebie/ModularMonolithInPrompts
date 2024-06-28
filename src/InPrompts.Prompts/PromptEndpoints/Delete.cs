@@ -2,7 +2,7 @@
 
 namespace InPrompts.Prompts.PromptEndpoints;
 
-public record DeletePromptRequest(int Id);
+public record DeletePromptRequest(Guid Id);
 
 internal class Delete(IPromptService promptService) : Endpoint<DeletePromptRequest, Prompt>
 {

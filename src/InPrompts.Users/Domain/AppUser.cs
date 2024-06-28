@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InPrompts.Users;
 
-public class AppUser : IdentityUser<int>, IHaveDomainEvents
+public class AppUser : IdentityUser<Guid>, IHaveDomainEvents
 {
     private readonly List<UserPrompt> _userPrompts = [];
     private readonly List<DomainEventBase> _domainEvents = [];
