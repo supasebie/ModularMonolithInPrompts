@@ -10,16 +10,18 @@ InPrompts is a cloud-native application designed using the modular monolith arch
 *  **Clean Architecture** - Structured into Domain, Application, and Infrastructure application layers
  
 *  **Entity Framework Core 8** - Using fluent builder for more explicit context and migration
+
+*  **.Net 8** - Quality of life enhancements, such as primary constructor dependency injection, reduce boilerplate and write cleaner code
  
 *  **Microsoft Identity** - Authentication with bearer token implementation
  
 *  **Docker** - Containerization of backend resources
  
-*  **Postgres** - Containerized and easily swapped out
+*  **Postgres** - Stores all our entities that are root aggregates following DDD. We is also use Postgres in conjunction with RabbitMQ/MassTransit to implement the Saga design pattern
  
-* **MongoDB** - Containerized NoSQL for email sending
+* **MongoDB** - A background service checks the MongoDB instance to send out emails
  
-*  **Minimal Web API** - Utilizing Fast-Endpoints with the _REPR_ (Request-Endpoint-Response) pattern
+*  **Minimal Web API** - Utilizing Fast-Endpoints with the _REPR_ (Request-Endpoint-Response) pattern, ditch those old controllers!
  
 *  **MediatR** - Implementing Command Query Responsibility segregation _(CQRS)_ pattern with in-process debugging
  
@@ -33,14 +35,15 @@ InPrompts is a cloud-native application designed using the modular monolith arch
   
 
 # The Back End
+InPrompts implements the latest design paradigms and architectural best practices promoted by Microsoft. The Modular Monolith takes advantage of tenants that fall under "Pros" for both Microservices and Monoliths. At the same time we do our best to leave the middle of the fray with as few "Cons" as possible. All the infrastructure, resources, and added abstraction can be so cumbersome that we end in a position where Microservice and horizontal scaling is not an option. Let's start off our projects on the right foot!
 
-InPrompts implements the latest design paradigms and architectural best practices promoted by Microsoft. The Modular Monolith takes advantage of tenants that fall under "Pros" for both Microservices and Monoliths. At the same time we do our best to leave the middle of the fray with as few "Cons" as possible. All the infrastructure, resources, and added abstraction can be so cumbersome that we sometimes avoid refactoring to Micrroservice, cloud ready applications.
+I've become a huge fan of the Modular Monolith, it struck me profoundly due to it's capacity to solve the design paralysis that can come with starting a new project. A primary factor which prevents individual developers and teams alike, from achieving the holy grail of Microservice architecture is the startup. How often do we consider or suggest refactoring as developers, but the demands of the backlog keep the application moving in the same direction, seemingly out of control?
 
-I've become a huge fan of the Modular Monolith, it struck me profoundly due to it's capacity to solve the design paralysis that can come with starting a new project, the right way. A main factor that prevents individual developers and teams from achieving the holy grail of Microservice architecture is the startup. How often do we consider refactoring, but the demands of the backlog keep the application moving in the same direction, seemingly out of control?
+The Modular Monolith positions developers so that we are well situated to refactor portions of the app into Microservice architecture. Essentially we start building our application as microservice modules, with no tight coupling, under one solution. We could, for example; Refactor our User entity / Identity module into its own Microservice to take on a large user ingress with a horizontal deployment scaling strategy on Azure. All, without having to overhaul or navigate too far from the the existing style and architecture of our application.
 
-The Modular Monolith positions developers so that we are well situated to refactor portions of the app into Microservice architecture because we start building with no tight coupling. We could, for example; Refactor our User entity and Identity module into its own Microservice to take on a large user ingress with horizontal deployment scaling on Azure. All, without having to overhaul or navigate too far from the the existing style and architecture of our application. A developer at any skill level is most capable of contributing deliverables, when we have adapted to the application.
+The agnostic design lends itself as a boon to any development team. A developer regardless of their skill level is most capable of contributing deliverables, when they understand the design of the application.
 
-Microsoft is now encouraging developers steer clear of Microservice architecture at the start of a project. This is due to the costs and failure rates that happen during the start of a project. Microsoft and their MVP's now advocate the Modular Monolith as the starting architecture for .Net applications. The Modular Monolith by design fits well into the cloud ready era and frameworks like .Net Aspire. Cohesively this encourages developers to start building enterprise ready cloud native applications as the baseline for projects of any size.
+Microsoft is now encouraging developers steer clear of Microservice architecture at the start of a project. This is due to the costs and failure rates that happen during the start of a project. Microsoft and MS MVP's now advocate the Modular Monolith as the starting architecture for .Net applications. The Modular Monolith fits well into a cloud ready era. The direction Microsoft is heading for production level applications is apparent new frameworks like .Net Aspire. We are encouraged to start building enterprise ready, scaling, cloud native applications as the baseline for projects of any size.
 
 I'd like thank Ardalis for advocating best practices as one of Microsofts top MVP. This project uses two of his Nuget packages. Unfortunatly he has paywalled material on Modular Monoliths... In the meantime, while we wait for official Microsoft documentation, I hope this project you a solid example
 
@@ -59,7 +62,7 @@ For more information regarding best practices as advised by Microsoft, please vi
 
 [Microsoft .Net Conference 2023 Clean Architecture](https://www.youtube.com/watch?v=yF9SwL0p0Y0&t=1060s&ab_channel=dotnet)
 
-Please note, that this project follows clean architecture by logical structure. Domain/Infrastructure/Application are not separate applications/libs with cascading dependencies. I only recommend this level of abstraction if you break a module out into it's own Microservice or when you identify that complications in business logic are causing developers to break architectural conventions. No cheating! Keep the domains internal and communicate across domains via UseCase API Endpoints that call do the Domain.Contract. The DomainX.Contract act as are an interface to expose functionality of the domains.
+Please note, that this project follows clean architecture by logical structure. Domain/Infrastructure/Application are not separate applications/classlibs with cascading dependencies. I only recommend this level of abstraction if you pull out a module out into it's own Microservice appllication or when you identify that complications in business logic are causing developers to break architectural conventions. No cheating! Keep the domains internal and communicate across domains via UseCase API Endpoints that call do the Domain.Contract. The DomainX.Contract act as are an interface to expose functionality of the domains.
 
 ```mermaid
 
@@ -83,20 +86,19 @@ G -- Id--> B
 
 ```
 # Prompts
-
 Why is there a redundancy of Prompts and UserPrompts? Good question! The answer is that the redundancy will leverage incoming features to support my anticipated CCU of over a quadrillion users. On a more serious note, the landing page will be a `List<Prompt>` ranked by business logic, and prompts are separated by category.
 
 Any Prompt where a user has content, will invoke sufficiently more interaction for that user than other prompts, regardless of how those Prompts rank. To minimize round trips to the database, the user will carry a copy of their prompts as UserPrompts to make up for our compromised indexing strategy. Additionally, the Prompts main page content will be paginated and cached with a key of datetime which will will only allow updates on at a time gated interval. The user can always view more content by consuming more content, e.g navigating further down the list.
 
-# RabbitMQ/Mass Transit
-I want to clarify that our event bus is contrived and primarily used for example purposes. Given the architecture, the implementation is unnecessary because our modules can communicate across the .Contract applications. However, this functionality is necessary if we choose to distribute our system into Microservices. Email sending, as it's own Microservice/application makes the most sense as we scale out. It's worth noting that the addition of an event bus brings us substantial overhead, gen 2 garbage collection is something we want to avoid.
+# EventBus - RabbitMQ/Mass Transit
+I want to clarify that our event bus, in the current context, is a contrived example. Given our architecture and current size and complexity, the implementation is unnecessary because our modules communicate across the x.Contract application layer via MediatR and registered assemblies using CQRS. We only want to  run the expense of multiple applications and provisioning the additional hardware if this were a real product with high user ingress.
+This implementation shows how we would navigate refactoring features, or transition to full microservice architecture. To achieve this, we want to continue with our current implementation leveraging the Event Bus. The EventBus module, contains our configurations for RabbitMQ, MassTransit, and project solutions that negotiate communication between modules
+With that said, RabbitMQ is provisioned as part of our docker resoruces and is serving an EventBus using MassTransit Saga.
 
-# The Front End
-
+# The Front End - Pending Implementation
 Angular is on it's way to drop RXJS and ZoneJS . This will be the largest change the Angular ecosystem has seen in a long time. The most optimal route to get to Zoneless Angular, is by adopting Signals. Code style and boilerplate sees a massive change when we take on this adaptation, considering how prolific RXJS has been in throughout the lifetime of Angular. Taking advantage of Angular signals makes our code easier to implement, read, and debug while substantially reducing the size of our bundle. I strongly believe that staying congruent with Angular is in our best interest as .Net developers.
 
 # Building And Running The App
-
 The Web project is our startup application, it's a standard .Net Web API generated by the DotNet tool CLI. We also added a sln file via the CLI. All other applications are a class libs, pay close attention to the dependancies. I've compiled a list of strings in appsettings.json;
 1. In the termal at the root of our app run docker compose up. This will build all the required back end services in docker.
 
@@ -133,21 +135,3 @@ dotnet ef database update -s ./src/InPrompts.Web -p ./src/InPrompts.EventBus/ --
 Step 4: Run the application
 
 dotnet watch run --project src/InPrompts.Web/
-
-
-  "AppRelatedStrings" :
-  {
-    "EfMigrationAddPrompts": "dotnet ef migrations add InitialPrompts -o Infrastructure/Data/Migrations --context PromptsDbContext --project ./src/InPrompts.Prompts -s ./src/InPrompts.Web",
-    
-    "EfMigrationAddUsers": "dotnet ef migrations add InitialUsers -o Infrastructure/Data/Migrations --context UsersDbContext --project ./src/InPrompts.Users -s ./src/InPrompts.Web",
-
-    "EfMigrationAddEventBus": "dotnet ef migrations add InitialEventBus -o Infrastructure/Data/Migrations --context SagaDbContext --project ./src/InPrompts.EventBus -s ./src/InPrompts.Web",
-
-    "EfDatabasePrompts" : "dotnet ef database update -s ./src/InPrompts.Web -p ./src/InPrompts.Prompts/ --context PromptsDbContext",
-    "EfDatabaseUsers" : "dotnet ef database update -s ./src/InPrompts.Web -p ./src/InPrompts.Users/ --context UsersDbContext",
-
-    "EfMigrationRemovePrompts": "dotnet ef migrations remove --context PromptDbContext --project InPrompts.Prompts -s InPrompts.Web",
-    "EfMigrationRemoveUsers": "dotnet ef migrations remove --context PromptDbContext --project InPrompts.Prompts -s InPrompts.Web",
-
-    "Run" : "dotnet watch run --project src/InPrompts.Web/"
-  }
