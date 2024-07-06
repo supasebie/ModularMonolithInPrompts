@@ -7,14 +7,17 @@
     <PackageReference Include="FastEndpoints" Version="5.26.0.24-beta" />
     <PackageReference Include="FastEndpoints.Security" Version="5.26.0.7-beta" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.26.0.7-beta" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.3" />
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.2-dev-00338" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InPrompts.SharedKernel\InPrompts.SharedKernel.csproj" />
     <ProjectReference Include="..\InPrompts.Prompts.Contracts\InPrompts.Prompts.Contracts.csproj" />
+    <ProjectReference Include="..\InPrompts.EventBus\InPrompts.EventBus.csproj" />
   </ItemGroup>
 </Project>

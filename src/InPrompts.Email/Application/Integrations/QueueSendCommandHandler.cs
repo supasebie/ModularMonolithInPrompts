@@ -1,11 +1,11 @@
 
 using Ardalis.Result;
 
+using InPrompts.Email.Contracts;
+
 using MediatR;
 
 namespace InPrompts.Email;
-
-public record SendEmailCommand(string To, string From, string Subject, string Body) : IRequest<Result<Guid>>;
 
 internal class QueueSendCommandHandler(IQueueSendService queueSendService) : IRequestHandler<SendEmailCommand, Result<Guid>>
 {

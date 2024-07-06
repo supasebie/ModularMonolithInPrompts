@@ -9,10 +9,12 @@ using FastEndpoints.Swagger;
 using InPrompts.Prompts;
 using InPrompts.Users;
 using InPrompts.Email;
+using InPrompts.EventBus;
 
 
 using Serilog;
 using InPrompts.Users.UseCases;
+
 
 var logger = Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
@@ -35,7 +37,9 @@ List<Assembly> appAssemblies = [typeof(InPrompts.Web.Program).Assembly];
 builder.Services
     .AddPromptModule(builder.Configuration, logger, appAssemblies)
     .AddUserModule(builder.Configuration, logger, appAssemblies)
-    .AddEmailModule(builder.Configuration, logger, appAssemblies);
+    .AddEmailModule(builder.Configuration, logger, appAssemblies)
+    .AddEventBusModule(builder.Configuration, logger, appAssemblies);
+
 
 // Configure AutoMapper
 builder.Services.AddAutoMapper(config => config.AddMaps(appAssemblies.ToArray()));

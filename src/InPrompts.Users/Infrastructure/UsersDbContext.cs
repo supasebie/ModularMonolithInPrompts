@@ -29,9 +29,9 @@ public class UsersDbContext(DbContextOptions<UsersDbContext> options, IDomainEve
       return result;
     }
 
-    var entitiesWithEvents = (ChangeTracker.Entries<IHaveDomainEvents>()
+    var entitiesWithEvents = ChangeTracker.Entries<IHaveDomainEvents>()
             .Select(e => e.Entity)
-            .Where(e => e.DomainEvents.Any()))
+            .Where(e => e.DomainEvents.Any())
         .ToArray();
     await dispatcher.DispatchAndClearEventsAsync(entitiesWithEvents);
     return result;

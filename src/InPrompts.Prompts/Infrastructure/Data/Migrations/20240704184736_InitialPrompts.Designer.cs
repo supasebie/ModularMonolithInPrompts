@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace InPrompts.Prompts.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(PromptsDbContext))]
-    [Migration("20240627205046_InitialPrompts")]
+    [Migration("20240704184736_InitialPrompts")]
     partial class InitialPrompts
     {
         /// <inheritdoc />

@@ -2,6 +2,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FastEndpoints" Version="5.26.0.24-beta" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.3" />
     <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
@@ -16,5 +17,6 @@
     <ProjectReference Include="..\InPrompts.Users\InPrompts.Users.csproj" />
     <ProjectReference Include="..\InPrompts.SharedKernel\InPrompts.SharedKernel.csproj" />
     <ProjectReference Include="..\InPrompts.Email\InPrompts.Email.csproj" />
+    <ProjectReference Include="..\InPrompts.EventBus\InPrompts.EventBus.csproj" />
   </ItemGroup>
 </Project>

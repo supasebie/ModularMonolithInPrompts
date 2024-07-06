@@ -23,3 +23,17 @@ services:
     restart: always
     ports:
       - "27017:27017"
+
+  eventbus-mq:
+    image: rabbitmq:3-management
+    container_name: eventbus-mq
+    hostname: eventbus-mq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+    volumes:
+      - ./.containers/queue/data/:/var/lib/rabbitmq
+      - ./.containers/queue/log/:/var/lib/rabbitmq
